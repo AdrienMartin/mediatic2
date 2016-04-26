@@ -1,0 +1,73 @@
+html,body{
+	
+	height:100%;
+	
+}
+
+header{
+	
+	height:auto;
+}
+
+.titre_tab{
+	
+	/*background-color:;*/
+	font-size:18px;
+	font-weigth:bold;
+	margin-bottom:15px;
+}
+
+li{
+	
+	text-decoration:none;
+}
+
+a:link, a:visited{
+	
+	list-style:none;
+	color:black;
+}
+.bouton_new{
+	
+	
+}
+.tableau{
+	
+	padding:5px;
+}
+.tableau td{
+	
+
+	
+}
+.entete{
+	
+	background-color:PowderBlue;
+	font-weight:bold;
+	font-size:14px;
+}
+.entete td:hover{
+	
+	background-color: rgba(48, 135, 159, 0.6);
+}
+/*.entete td[class=titre]:hover{
+	
+	background-color: rgba(48, 135, 159, 0.6);
+}*/
+.search{
+	
+	margin-top:10px;
+	border-top:2px solid steelBlue;
+	padding:10px ;
+	padding-left:none;
+	
+}
+.bouton_new a{
+	
+	margin:10px;
+}
+.tableau{
+	
+
+}
+

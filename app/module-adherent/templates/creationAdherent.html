@@ -1,0 +1,133 @@
+
+
+<!-- <script type="text/javascript"> -->
+
+<!-- // 	function formaterDate(date){ -->
+<!-- // 		// format string au format date -->
+<!-- // 		var day = ("0" + date.getDate()).slice(-2); -->
+<!-- // 		var month = ("0" + (date.getMonth()+1)).slice(-2); -->
+<!-- // 		return (date.getFullYear() + '-' + month + '-' + day); -->
+<!-- // 	} -->
+
+<!-- // 	function datePaiementToday(){ -->
+<!-- // 		// on met, par d�faut, la date de paiement de paiement de la cotisation � aujourd'hui -->
+<!-- // 		var today = formaterDate(new Date()); -->
+<!-- // 		$('#datePaiement').val(today); -->
+<!-- // 	} -->
+
+<!-- // 	function calculDateFinAbonnement(){ -->
+<!-- // 		// date fin abonnement = date de paiement de cotisation + 1an -->
+<!-- // 		var dateFin = new Date($('#datePaiement').val()); -->
+<!-- // 		dateFin.setYear(dateFin.getFullYear() + 1); -->
+<!-- // 		$('#finAbonnement').val(formaterDate(dateFin)); -->
+<!-- // 	} -->
+
+<!-- // 	function getAge(date) { -->
+<!-- // 		return Math.floor(((new Date()) - new Date(date)) / (1000 * 60 * 60 * 24 *365.25)); -->
+<!-- // 	} -->
+
+<!-- // 	$(function() { -->
+<!-- // 		datePaiementToday(); -->
+<!-- // 		calculDateFinAbonnement(); -->
+
+<!-- // 		// calcul de l'age automatique -->
+<!-- // 		$('#dateNaissance').change(function() { -->
+<!-- // 			var age = getAge($('#dateNaissance').val()); -->
+<!-- // 			if (parseInt(age) > 0) { -->
+<!-- // 				$('#age').val(age); -->
+<!-- // 			} else { -->
+<!-- // 				$('#age').val('?'); -->
+<!-- // 			} -->
+<!-- // 		}); -->
+
+<!-- // 		// calcul date fin abonnement automatique -->
+<!-- // 		$('#datePaiement').change(function() { -->
+<!-- // 			calculDateFinAbonnement(); -->
+<!-- // 		}); -->
+
+<!-- // 	}); -->
+<!-- </script> -->
+
+
+<div ng-include="'./module-global/templates/header.html'"></div>
+
+<main>
+	<form method="POST" ng-submit="adhCtrl.submit()" class="form-horizontal">
+		<fieldset>
+			<legend>Création d'un adhérent</legend>
+			<div class="form-group">
+				<label for="nom" class="control-label col-sm-2 hidden-xs">Nom</label>
+				<div class="col-sm-4 col-xs-6"> 
+					<input ng-model="adhCtrl.adherent.nom" type="text" class="form-control" placeholder="Nom" name="nom" required="required">
+				</div>
+				<label for="prenom" class="control-label col-sm-2 hidden-xs">Prénom</label>
+				<div class="col-sm-4 col-xs-6">
+					<input ng-model="adhCtrl.adherent.prenom" type="text" class="form-control" placeholder="Prénom" name="prenom" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="dateNaissance" class="control-label col-sm-2 hidden-xs">Date de naissance</label>
+				<div class="col-sm-4 col-xs-6"> 
+					<input ng-model="adhCtrl.adherent.date_naissance" type="date" class="form-control" id="dateNaissance" name="dateNaissance" placeholder="Date de naissance" required="required" ng-change="adhCtrl.calculAge(adhCtrl.adherent.date_naissance)">
+				</div>
+				<label for="age" class="control-label col-sm-2 hidden-xs">Age</label>
+				<div class="col-sm-4 col-xs-6">
+					<input ng-model="adhCtrl.adherent.age" type="text" class="form-control" id='age' placeholder="Age" name="age"readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="mail" class="control-label col-sm-2 hidden-xs">E-mail</label>
+				<div class="col-sm-10 col-xs-12"> 
+					<input ng-model="adhCtrl.adherent.email" type="email" class="form-control" placeholder="E-mail" name="mail" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="adresse" class="control-label col-sm-2 hidden-xs">Adresse</label>
+				<div class="col-sm-10 col-xs-12"> 
+					<input ng-model="adhCtrl.adherent.adresse.ligne1" type="text" class="form-control" placeholder="Adresse" name="adresse">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="adresse" class="control-label col-sm-2 hidden-xs">Adresse (suite)</label>
+				<div class="col-sm-10 col-xs-12"> 
+					<input ng-model="adhCtrl.adherent.adresse.ligne2" type="text" class="form-control" placeholder="Adresse" name="adresse">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="codePostal" class="control-label col-sm-2 hidden-xs">Code Postal</label>
+				<div class="col-sm-4 col-xs-6"> 
+					<input ng-model="adhCtrl.adherent.adresse.codepostal" type="text" class="form-control" placeholder="Code Postal" name="nom" maxLength="5">
+				</div>
+				<label for="ville" class="control-label col-sm-2 hidden-xs">Ville</label>
+				<div class="col-sm-4 col-xs-6">
+					<input ng-model="adhCtrl.adherent.adresse.ville" type="text" class="form-control" placeholder="Ville" name="ville">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="datePaiement" class="control-label col-sm-2 hidden-xs">Date de paiement de la cotisation</label>
+				<div class="col-sm-4 col-xs-6"> 
+					<input ng-model="adhCtrl.adherent.debutCotisation" type="date" id="datePaiement" class="form-control" name="datePaiement" placeholder="Date de paiement de la cotisation"  ng-change="adhCtrl.calculFinAbonnement(adhCtrl.adherent.debutCotisation)">
+				</div>
+				<label for="dateFinAbonnement" class="control-label col-sm-2 hidden-xs">Date de fin d'abonnement</label>
+				<div class="col-sm-4 col-xs-6">
+					<input ng-model="adhCtrl.adherent.finCotisation" type="date" class="form-control" id='finAbonnement' name="dateFinAbonnement" placeholder="Date de fin d'abonnement" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="montantCotisation" class="control-label col-sm-2 hidden-xs">Montant de la cotisation</label>
+				<div class="col-sm-4 col-xs-12"> 
+					<div class="input-group">
+						<input ng-model="adhCtrl.adherent.montantCotisation" type="text" class="form-control" placeholder="Montant de la cotisation" name="montantCotisation" maxLength="6">
+						<span class="input-group-addon">€</span>
+					</div>
+
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12 col-sm-offset-2">
+					<input class="btn btn-default" type="submit" value="Enregistrer">
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</main>

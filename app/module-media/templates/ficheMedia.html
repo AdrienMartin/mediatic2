@@ -1,0 +1,127 @@
+<div ng-include="'./module-global/templates/header.html'"></div>
+
+<main>
+	<div>
+		<h3>
+			<span class=infoType ng-switch on="medCtrl.media.type">
+				<span ng-switch-when="Livre" class="glyphicon glyphicon-book" aria-hidden="true"></span>
+				<span ng-switch-when="CD" class="glyphicon glyphicon-music" aria-hidden="true"></span>
+				<span ng-switch-when="DVD" class="glyphicon glyphicon-film" aria-hidden="true"></span>
+			</span>
+			<span class=infoTitre ng-bind="medCtrl.media.titre"></span><small> par <span class="infoAuteur" ng-bind="medCtrl.media.auteur"></span></small>
+		</h3>
+	</div>
+	<br />
+	
+	<form ng-submit="medCtrl.saveMedia()" class="form-horizontal">
+		<fieldset>
+			<legend>Modifier le média</legend>
+			<div class="form-group">
+				<label for="titre" class="control-label col-sm-2 hidden-xs">Titre</label>
+				<div class="col-sm-7 col-xs-12"> 
+					<input ng-model="medCtrl.mediaTmp.titre" type="text" class="form-control" placeholder="Titre" name="titre" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="auteur" class="control-label col-sm-2 hidden-xs">Auteur</label>
+				<div class="col-sm-7 col-xs-12">
+					<input ng-model="medCtrl.mediaTmp.auteur" type="text" class="form-control" placeholder="Auteur" name="auteur" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="type" class="control-label col-sm-2 hidden-xs">Type</label>
+				<div class="col-sm-7 col-xs-12">
+					<select ng-model="medCtrl.mediaTmp.type" name="selectType" class="form-control">
+						<option>Livre</option>
+						<option>CD</option>
+						<option>DVD</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12 col-sm-offset-2">
+					<input class="btn btn-default" type="submit" value="Enregistrer">
+				</div>
+			</div>
+		</fieldset>
+	</form>
+	
+	<div ng-show="medCtrl.media.emprunteur==undefined" class="alert alert-success" role="alert">Disponible</div>
+	<div ng-show="!(medCtrl.media.emprunteur==undefined)" class="alert alert-warning" role="alert">
+		Emprunté par 
+		<span ng-bind="medCtrl.media.emprunteur.nom + ' ' + medCtrl.media.emprunteur.prenom"></span>
+		, sera disponible le 
+		<span ng-bind="medCtrl.media.retour | date:'dd/MM/yyyy'"></span>
+	</div>
+	
+	<form ng-submit="medCtrl.saveEmprunt()" class="form-inline">
+		<fieldset>
+			<legend>Ajouter un prêt</legend>
+			<div class="form-group">
+				<label for="filtre" class="hidden-xs">filtre</label>
+				<input ng-model="medCtrl.filtreAdherent" ng-change="medCtrl.changeListeAdherent()" type="text" class="form-control" placeholder="Filtre nom" name="filtre">
+				<label for="nom" class="hidden-xs">Nom</label>
+				<select ng-model="medCtrl.adherentId" ng-options="adherent.id as (adherent.nom +' '+ adherent.prenom) for adherent in medCtrl.listeAdherentsTmp" name="nom" required="required" class="form-control"></select>
+			</div>
+			<div class="form-group">
+				<label for="dateEmprunt" class="hidden-xs">Date emprunt</label>
+				<input ng-model="medCtrl.mediaTmp.empruntDebut" ng-change="medCtrl.changeDateRetour()" type="date" class="form-control dateEmprunt" name="dateEmprunt" required="required">
+			</div>
+			<div class="form-group">
+				<label for="dateRetour" class="hidden-xs">Date de retour</label>
+				<input ng-model="medCtrl.mediaTmp.empruntRetour" type="date" class="form-control dateRetour" name="dateRetour" readonly>
+			</div>
+			<button type="submit" class="btn btn-default">Ajouter</button>
+		</fieldset>
+		</br>
+	</form>
+
+	<div>
+    	<legend>Liste des adhérents ayant emprunté ce média</legend>
+    	<div class=" tableau col-md-12">
+			<div class="responsive-table-line">
+				<table class="hidden-xs table table-hover table-bordered ">
+					<thead>
+						<tr class="entete" >
+							<th onclick="location.href='#';" style="cursor:pointer;">
+								<span>Nom </span>
+								<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+							</th>
+							<th onclick="location.href='#';" style="cursor:pointer;">
+								<span>Prénom </span>
+								<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+							</th>
+							<th onclick="location.href='#';" style="cursor:pointer;">
+								<span>Date d'emprunt</span>
+								<span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+							</th>
+							<th onclick="location.href='#';" style="cursor:pointer;">
+								<span>Date de retour</span>
+								<span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="emprunteur in medCtrl.media.emprunteurs" ng-click="medCtrl.showAdherent(emprunteur.adherent.id)" style="cursor:pointer;">
+							<td data-title="Nom"><span ng-bind="emprunteur.adherent.nom"></span></td>
+							<td data-title="Prénom"><span ng-bind="emprunteur.adherent.prenom"></span></td>
+							<td data-title="Date"><span ng-bind="emprunteur.depart | date:'dd/MM/yyyy'"></span></td>
+							<td data-title="Date"><span ng-bind="emprunteur.retour | date:'dd/MM/yyyy'"></span></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<div class=" visible-xs-block row" >
+					<div ng-repeat="emprunteur in medCtrl.media.emprunteurs" class="col-xs-6">
+						<a ng-click="medCtrl.showAdherent(emprunteur.adherent.id)" href=""><div class="list">
+							<label>Nom :</label><span ng-bind="emprunteur.adherent.nom"></span><br>
+							<label>Prénom :</label><span ng-bind="emprunteur.adherent.prenom"></span><br>
+							<label>Debut :</label><span ng-bind="emprunteur.depart | date:'dd/MM/yyyy'"></span><br>
+							<label>Retour :</label><span ng-bind="emprunteur.retour | date:'dd/MM/yyyy'"></span>
+						</div></a>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+</main>

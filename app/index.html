@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html  ng-app="ModuleApp">
+<head>
+<title>Connexion</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">	
+<link rel="stylesheet" type="text/css" href="css/rechercheMedia.css">
+<link rel="stylesheet" media="screen and (max-width:800px)" type="text/css" href="css/rechercheMedia_tel.css" >
+<link rel="stylesheet" href="css/ficheAdherent.css">
+
+<!-- Chargement des librairies javascript d'ANGULAR-JS -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-i18n/angular-locale_fr-fr.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- Chargement des librairies de l'application -->
+<script src="app.js"></script>
+<script src="module-global/js/services/ConnexionService.js"></script>
+
+<!--Chargement des CONTROLLERS -->
+<script src="module-global/js/controller/ConnexionController.js"></script>
+<script src="module-global/js/controller/TopController.js"></script>
+<script src="module-global/js/controller/MenuController.js"></script>
+<script src="module-global/js/services/EmpruntService.js"></script>
+<script src="module-adherent/js/adherent.js"></script>
+<script src="module-adherent/js/service/adherents.js"></script>
+<script src="module-adherent/js/service/ficheAdherent.js"></script>
+<script src="module-adherent/js/controller/RechercheAdherentController.js"></script>
+<script src="module-adherent/js/controller/FicheAdherentController.js"></script>
+<script src="module-adherent/js/controller/CreationAdherentController.js"></script>
+<script src="module-adherent/js/service/adherentMemory.js"></script>
+<script src="module-adherent/js/service/creerAdherent.js"></script>
+<script src="module-media/js/media.js"></script>
+<script src="module-media/js/controller/RechercheMediaController.js"></script>
+<script src="module-media/js/controller/FicheMediaController.js"></script>
+<script src="module-media/js/controller/CreationMediaController.js"></script>
+<script src="module-media/js/service/Media.js"></script>
+<script src="module-media/js/service/rechercheMedia.js"></script>
+<script src="module-media/js/service/ficheMedia.js"></script>
+<script src="module-media/js/service/creationMedia.js"></script>
+
+
+</head>
+<body class="container" ng-controller="TopController as topCtrl">
+	<div ng-if="!topCtrl.isConnected()">
+		<ng-view></ng-view>
+	</div>
+	<div ng-if="topCtrl.isConnected()">
+		<div ng-include="'./module-global/templates/login.html'"></div>
+	</div>
+	
+</body>
+</html>

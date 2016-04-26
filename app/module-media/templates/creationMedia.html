@@ -1,0 +1,36 @@
+<div ng-include="'./module-global/templates/header.html'"></div>
+
+<main>
+	<form ng-submit="medCtrl.saveMedia()" class="form-horizontal">
+		<fieldset>
+			<legend>Créer un média</legend>
+			<div class="form-group">
+				<label for="titre" class="control-label col-sm-2 hidden-xs">Titre</label>
+				<div class="col-sm-7 col-xs-12"> 
+					<input ng-model="medCtrl.media.titre" type="text" class="form-control" placeholder="Titre" name="titre" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="auteur" class="control-label col-sm-2 hidden-xs">Auteur</label>
+				<div class="col-sm-7 col-xs-12">
+					<input ng-model="medCtrl.media.auteur" type="text" class="form-control" placeholder="Auteur" name="auteur" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="type" class="control-label col-sm-2 hidden-xs">Type</label>
+				<div class="col-sm-7 col-xs-12">
+					<select ng-model="medCtrl.media.type" name="selectType" class="form-control">
+						<option>Livre</option>
+						<option>CD</option>
+						<option>DVD</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12 col-sm-offset-2">
+					<input class="btn btn-default" type="submit" value="Enregistrer">
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</main>

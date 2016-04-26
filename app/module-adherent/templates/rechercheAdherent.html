@@ -1,0 +1,122 @@
+<div ng-include="'./module-global/templates/header.html'"></div>
+
+<main>
+<section class="bouton_new row">
+	<div class="col-md-12">
+		<a href="creationAdherent.html"><button class="btn btn-primary">
+				Nouveau <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			</button></a>
+	</div>
+</section>
+
+<section class=" main row">
+	<div class="col-md-4">
+		<div class="search">
+			<form>
+				<div class="form-group">
+					<label>Identifiant</label>
+					<br />
+					<input class="form-control" type="text" placeholder="Commence par..."
+						ng-model="adhCtrl.filter.id" />
+				</div>
+				<div class="form-group">
+					<label>Nom / Prénom</label>
+					<br />
+					<input class="form-control" type="text" placeholder="Contient..."
+						ng-model="adhCtrl.filter.texte" />
+				</div>
+				<button class="btn btn-default" ng-click="adhCtrl.rechercher()">Rechercher</button>
+			</form>
+		</div>
+	</div>
+
+	<div class=" tableau col-md-8">
+		<span class="titre_tab">Liste des Adhérents</span>
+		<div class="responsive-table-line">
+			<table class="hidden-xs table table-hover table-bordered ">
+				<thead>
+					<tr class="entete">
+						<th><a href="" ng-click="adhCtrl.tri('id')">Identifiant <span
+								class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></th>
+						<th><a href="" ng-click="adhCtrl.tri('nom')">Nom <span
+								class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></th>
+						<th><a href="" ng-click="adhCtrl.tri('prenom')">Prénom <span
+								class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a></th>
+						<th><a href="">Date de naissance <span class="glyphicon glyphicon-triangle-bottom"
+								aria-hidden="true"></span></a></th>
+						<th><a id="cotisation" href="" title="A jour cotisation"><span
+								class="glyphicon glyphicon-euro" aria-hidden="true"></span> <span
+								class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a></th>
+						<th><a id="nbMedia" title="Nbre de médias en possession" href="">Médias<span
+								class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-show="adhCtrl.listeAdherents==undefined">
+						<td colspan="4">Chargement du catalogue en cours</td>
+					</tr>
+					<tr ng-show="adhCtrl.hasErrorAdherent()">
+						<td colspan="4">Erreur lors du chargement du catalogue</td>
+					</tr>
+					<tr ng-repeat="adherent in adhCtrl.listeAdherents" ng-click="adhCtrl.showAdherent(adherent.id)">
+						<td ng-bind="adherent.id"></td>
+						<td ng-bind="adherent.nom"></td>
+						<td ng-bind="adherent.prenom"></td>
+						<td ng-bind="adherent.date_naissance | date:'dd/MM/yyyy'"></td>
+						<td ng-if="adherent.cotisation_correcte==true"><img src="img/valid.gif" /></td>
+						<td ng-if="adherent.cotisation_correcte==false"><img src="img/sup.gif" /></td>
+						<td ng-bind="adherent.emprunt"></td>
+					</tr>
+				</tbody>
+			</table>
+			<nav>
+				<ul class="pagination">
+					<li><a href="" aria-label="Previous" ng-click="adhCtrl.changePage(adhCtrl.pageCourante-1)"> <span aria-hidden="true">&laquo;</span>
+					</a></li>
+					<li ng-repeat="n in adhCtrl.listePages">
+					<a href="" ng-bind="n+1" ng-click="adhCtrl.changePage(n)"></a>
+					</li>
+					<li><a href="" aria-label="Next" ng-click="adhCtrl.changePage(adhCtrl.pageCourante+1)"> <span aria-hidden="true">&raquo;</span>
+					</a></li>
+				</ul>
+			</nav>
+
+
+			<div class="grille visible-xs-block row">
+				<div class="col-xs-6" ng-show="adhCtrl.listeAdherents==undefined">
+					<span>Chargement du catalogue en cours</span>
+				</div>
+				<div class="col-xs-6" ng-show="adhCtrl.hasErrorAdherent()">
+					<span>Erreur lors du chargement du catalogue</span>
+				</div>
+
+				<div class="col-xs-6" ng-repeat="adherent in adhCtrl.listeAdherents">
+					<a href="ficheAdherent.html"><div class="list">
+							<label>Identifiant: </label>
+							<li ng-bind="adherent.id"></li>
+							<br>
+							<label>Nom: </label>
+							<li ng-bind="adherent.nom"></li>
+							<br>
+							<label>Prenom: </label>
+							<li ng-bind="adherent.prenom"></li>
+							<br>
+							<label>Date de naissance: </label>
+							<li ng-bind="adherent.date_naissance | date:'dd/MM/yyyy'"></li>
+							<br>
+							<label>A jour cotisation: </label>
+							<li ng-if="adherent.cotisation_correcte==true"><img src="img/valid.gif" /></li>
+							<li ng-if="adherent.cotisation_correcte==false"><img src="img/sup.gif" /></li>
+							<br>
+							<label>Nombre médias en possession: </label>
+							<li ng-bind="adherent.emprunt"></li>
+							<br>
+
+						</div></a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</main>

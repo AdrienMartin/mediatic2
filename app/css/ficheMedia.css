@@ -1,0 +1,9 @@
+.alert {
+	display: inline-block; 
+}
+
+a:visited, a:link{
+	
+	list-style:none;
+	color:black;
+}

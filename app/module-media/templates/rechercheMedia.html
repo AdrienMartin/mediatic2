@@ -1,0 +1,106 @@
+<div ng-include="'./module-global/templates/header.html'"></div>
+
+<main>
+	<section class="bouton_new row">
+		<div class="col-md-12">
+			<a href="creationMedia.html"><button class="btn btn-primary">Nouveau <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></a>
+		</div>
+	</section>
+	
+	<section class="row">
+		<div class="col-md-4">
+			<div class="search">
+				<form>
+					<div class="form-group">
+						<label >Titre</label><br/>
+						<input ng-model="medCtrl.filters.titre" class="form-control" type="text" placeholder="Contient..."/>
+					</div>
+					<div class="form-group">
+						<label >Auteur</label><br/>
+						<input ng-model="medCtrl.filters.auteur" class="form-control" type="text" placeholder="Contient..."/>
+					</div>
+					<div class="form-group">
+						<label >Type</label><br/>
+						<select ng-model="medCtrl.filters.type" class="form-control">
+							<option>CD</option>
+							<option>DVD</option>
+							<option>Livre</option>
+						</select>
+					</div>
+				<button ng-click="medCtrl.getListeTriee()" class="btn btn-default">Rechercher</button>
+				</form>
+			</div>
+		</div>
+		
+		<div class="tableau col-md-8">
+			<span class="titre_tab">Liste des Médias</span>
+			<div class="responsive-table-line">
+				<table class="hidden-xs table table-hover table-bordered ">
+					<thead>
+						<tr class="entete" >
+							<th><a href="" ">Type <span ng-if="medCtrl.filters.tri == 'type'" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></th>
+							<th><a href="" ng-click="medCtrl.getListeTriee('titre')">Titre <span ng-if="medCtrl.filters.tri == 'titre'" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></th>
+							<th><a href="" ng-click="medCtrl.getListeTriee('auteur')">Auteur <span ng-if="medCtrl.filters.tri == 'auteur'" class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a></th>
+							<th ><a href="">Emprunté par <span ng-if="medCtrl.filters.tri == 'emprunt'" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></th>
+							<th ><a href="">Date de retour <span ng-if="medCtrl.filters.tri == 'retour'" class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-show="medCtrl.medias==undefined">
+							<td colspan="5">
+								Chargement de la liste des medias en cours
+							</td>
+						</tr>
+						<tr ng-show="medCtrl.hasErrorProduits()">
+							<td colspan="5">
+								Erreur lors du chargement de la liste des medias
+							</td>
+						</tr>
+						<tr ng-repeat="media in medCtrl.medias" ng-click="medCtrl.showMedia(media.id)" style="cursor:pointer;">
+							<td ng-switch on="media.type" data-title="Type">
+								<span ng-switch-when="Livre" class="glyphicon glyphicon-book" aria-hidden="true"></span>
+								<span ng-switch-when="CD" class="glyphicon glyphicon-music" aria-hidden="true"></span>
+								<span ng-switch-when="DVD" class="glyphicon glyphicon-film" aria-hidden="true"></span>
+							</td>
+							<td ng-bind="media.titre" data-title="Titre"></td>
+							<td ng-bind="media.auteur" data-title="Auteur"></td>
+							<td ng-bind="media.emprunteur.nom + ' ' + media.emprunteur.prenom" data-title="Emprunté par"></td>
+							<td ng-bind="media.retour | date:'dd/MM/yyyy'" data-title="Date de retour"></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<nav>
+				<ul class="pagination">
+					<li><a href="" aria-label="Previous" ng-click="medCtrl.changePage(medCtrl.pageCourante-1)"> <span aria-hidden="true">&laquo;</span>
+					</a></li>
+					<li ng-repeat="n in medCtrl.listePages">
+					<a href="" ng-bind="n+1" ng-click="medCtrl.changePage(n)"></a>
+					</li>
+					<li><a href="" aria-label="Next" ng-click="medCtrl.changePage(medCtrl.pageCourante+1)"> <span aria-hidden="true">&raquo;</span>
+					</a></li>
+				</ul>
+			</nav>
+				
+				
+				<div class=" visible-xs-block row" >
+					<div ng-repeat="media in medCtrl.medias" class="col-xs-6">
+						<a href="ficheMedia.html">
+							<div class="list">
+								<span  ng-switch on="media.type">
+									<span ng-switch-when="Livre" class="glyphicon glyphicon-book" aria-hidden="true"></span>
+									<span ng-switch-when="CD" class="glyphicon glyphicon-music" aria-hidden="true"></span>
+									<span ng-switch-when="DVD" class="glyphicon glyphicon-film" aria-hidden="true"></span>
+								</span>
+								<label>Titre: </label><li ng-bind="media.titre"></li><br>					
+								<label>Auteur: </label><li ng-bind="media.auteur"><li><br>
+								<label>Emprunté par: </label><li ng-bind="media.emprunteur.nom + ' ' + media.emprunteur.prenom"></li><br>
+								<label>Date de retour: </label><li ng-bind="media.retour | date:'dd/MM/yyyy'"></li><br>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>

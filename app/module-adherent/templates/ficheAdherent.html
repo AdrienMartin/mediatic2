@@ -1,0 +1,192 @@
+<script type="text/javascript">
+/*	"use strict";
+	
+	function formaterDateInput(date){
+		// format string au format date pour l'input Date
+		var day = ("0" + date.getDate()).slice(-2);
+		var month = ("0" + (date.getMonth()+1)).slice(-2);
+		return (date.getFullYear() + '-' + month + '-' + day);
+	}
+
+	function dateEmpruntToday(){
+		var today = formaterDateInput(new Date());
+		$('input.dateEmprunt').val(today);
+	}
+
+	function calculDateRetour(){
+		var dateRetour = new Date($('input.dateEmprunt').val());
+		dateRetour.setDate(dateRetour.getDate() + 30);
+		$('.dateRetour').val(formaterDateInput(dateRetour));
+	}
+
+	$(function() {
+		dateEmpruntToday();
+		calculDateRetour();
+
+		// calcul date retour automatique
+		$('input.dateEmprunt').change(function() {
+			var dateRetour = new Date($('input.dateEmprunt').val());
+			dateRetour.setDate(dateRetour.getDate() + 30);
+			$('.dateRetour').val(formaterDateInput(dateRetour));
+		});
+	});
+*/
+</script>
+
+<div ng-include="'./module-global/templates/header.html'"></div>
+
+<main>
+	<form method="GET" action="." class="form-horizontal">
+		<fieldset>
+			<legend>Modifier ses informations personnelles</legend>
+			<div class="form-group">
+				<label for="nom" class="control-label col-sm-2 hidden-xs">Nom</label>
+				<div class="col-sm-4 col-xs-6"> 
+					<input ng-model="adhCtrl.adherent.nom" type="text" class="form-control" placeholder="Nom" name="nom" required="required">
+				</div>
+				<label for="prenom" class="control-label col-sm-2 hidden-xs">Prénom</label>
+				<div class="col-sm-4 col-xs-6">
+					<input ng-model="adhCtrl.adherent.prenom" type="text" class="form-control" placeholder="Prénom" name="prenom" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="dateNaissance" class="control-label col-sm-2 hidden-xs">Date de naissance</label>
+				<div class="col-sm-4 col-xs-6"> 
+					<input ng-model="adhCtrl.adherent.date_naissance" type="date" class="form-control" id="dateNaissance" name="dateNaissance" placeholder="Date de naissance" required="required" ng-change="adhCtrl.calculAge(adhCtrl.adherent.date_naissance)">
+				</div>
+				<label for="age" class="control-label col-sm-2 hidden-xs">Age</label>
+				<div class="col-sm-4 col-xs-6">
+					<input ng-model="adhCtrl.adherent.age" type="text" class="form-control" id='age' placeholder="Age" name="age"readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="mail" class="control-label col-sm-2 hidden-xs">E-mail</label>
+				<div class="col-sm-10 col-xs-12"> 
+					<input ng-model="adhCtrl.adherent.email" type="email" class="form-control" placeholder="E-mail" name="mail" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="adresse" class="control-label col-sm-2 hidden-xs">Adresse</label>
+				<div class="col-sm-10 col-xs-12"> 
+					<input ng-model="adhCtrl.adherent.adresse.ligne1" type="text" class="form-control" placeholder="Adresse" name="adresse">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="adresse" class="control-label col-sm-2 hidden-xs">Adresse (suite)</label>
+				<div class="col-sm-10 col-xs-12"> 
+					<input ng-model="adhCtrl.adherent.adresse.ligne2" type="text" class="form-control" placeholder="Adresse" name="adresse">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="codePostal" class="control-label col-sm-2 hidden-xs">Code Postal</label>
+				<div class="col-sm-4 col-xs-6"> 
+					<input ng-model="adhCtrl.adherent.adresse.codepostal" type="text" class="form-control" placeholder="Code Postal" name="nom" maxLength="5">
+				</div>
+				<label for="ville" class="control-label col-sm-2 hidden-xs">Ville</label>
+				<div class="col-sm-4 col-xs-6">
+					<input ng-model="adhCtrl.adherent.adresse.ville" type="text" class="form-control" placeholder="Ville" name="ville">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="datePaiement" class="control-label col-sm-2 hidden-xs">Date de paiement de la cotisation</label>
+				<div class="col-sm-4 col-xs-6"> 
+					<input ng-model="adhCtrl.adherent.debutCotisation" type="date" id="datePaiement" class="form-control" name="datePaiement" placeholder="Date de paiement de la cotisation"  ng-change="adhCtrl.calculFinAbonnement(adhCtrl.adherent.debutCotisation)">
+				</div>
+				<label for="dateFinAbonnement" class="control-label col-sm-2 hidden-xs">Date de fin d'abonnement</label>
+				<div class="col-sm-4 col-xs-6">
+					<input ng-model="adhCtrl.adherent.finCotisation" type="date" class="form-control" id='finAbonnement' name="dateFinAbonnement" placeholder="Date de fin d'abonnement" readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="montantCotisation" class="control-label col-sm-2 hidden-xs">Montant de la cotisation</label>
+				<div class="col-sm-4 col-xs-12"> 
+					<div class="input-group">
+						<input ng-model="adhCtrl.adherent.montantCotisation" type="text" class="form-control" placeholder="Montant de la cotisation" name="montantCotisation" maxLength="6">
+						<span class="input-group-addon">€</span>
+					</div>
+
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12 col-sm-offset-2">
+					<input class="btn btn-default" type="submit" value="Enregistrer">
+				</div>
+			</div>
+		</fieldset>
+	</form>
+
+	<form ng-submit="adhCtrl.ajoutEmprunt()" class="form-inline">
+		<fieldset>
+    		<legend>Ajouter un média emprunté</legend>
+			<div class="form-group">
+				<label for="titre" class="hidden-xs">Titre</label>
+				<!-- <input list="medias" ng-model="adhCtrl.titre"  ng-change="adhCtrl.initDate()" type="text" class="form-control" placeholder="Titre" name="titre" required="required">
+				  <datalist id="medias">	
+						<!--  <option  id="{{elmt.id}}" data-ng-repeat="elmt in adhCtrl.medias" value="{{elmt.titre}}">
+						 <select id="_select" name="_select" ng-model="selectedMedia" ng-options='k.id as k.titre for k in adhCtrl.medias'></select>
+					
+				</datalist> -->  
+				 <input ng-model="adhCtrl.filtreMedia"  ng-change="adhCtrl.searchMedias()" type="text" class="form-control" placeholder="Titre" name="titre" >
+				 <select class="form-control"  id="_select" name="_select" ng-change="adhCtrl.initDate()" ng-model="adhCtrl.idMedia" ng-options='k.id as k.titre for k in adhCtrl.mediasTmp'></select>
+					
+				
+				
+			</div>
+			<div class="form-group">
+				<label for="dateEmprunt" class="hidden-xs">Date emprunt</label>
+				<input  ng-model="adhCtrl.dateEmprunt" type="date" class="form-control dateEmprunt" name="dateEmprunt" required="required">
+				
+			</div>
+			<div class="form-group">
+				<label for="dateRetour" class="hidden-xs">Date de retour</label>
+				<input ng-model="adhCtrl.dateRetour" type="date" class="form-control dateRetour" name="dateRetour" readonly>
+			</div>
+			<input  type="submit" class="btn btn-default" value="Ajouter">
+		</fieldset>
+		</br>
+	</form>
+
+	<div>
+	    <legend>Liste des médias empruntés</legend>
+
+	    <div class=" tableau col-md-12">
+			<div class="responsive-table-line">
+				<table class="hidden-xs table table-hover table-bordered ">
+					<thead>
+						<tr class="entete" >
+							<th><a href="">Type <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></th>
+							<th><a href="">Titre <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></th>
+							<th><a href="">Auteur <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a></th>
+							<th ><a href="">Date d'emprunt <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></th>
+							<th ><a href="">Date de retour <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="emprunts in adhCtrl.adherent.medias" ng-click="adhCtrl.showMedia(emprunts.media.id)" style="cursor:pointer;">
+							<td data-title="Type"><span class="glyphicon glyphicon-book" aria-hidden="true"></span></td>
+							<td data-title="Titre" ng-bind="emprunts.media.titre"></td>
+							<td data-title="Auteur" ng-bind="emprunts.media.titre"></td>
+							<td data-title="Date d'emprunt" ng-bind="emprunts.depart | date:'dd/MM/yyyy'"></td>
+							<td data-title="Date de retour" ng-bind="emprunts.retour | date:'dd/MM/yyyy'"></td>
+						
+						</tr>
+					</tbody>
+				</table>
+				
+				<div class=" visible-xs-block row" >
+					<div class="col-xs-6">
+						<a href="" ng-repeat="emprunts in adhCtrl.adherent.medias" ng-click="adhCtrl.showMedia(emprunts.media.id)"><div class="list">
+							<span class="glyphicon glyphicon-book" aria-hidden="true"> </span>
+							<label>Titre: </label><li ng-bind="emprunts.media.titre"></li><br>					
+							<label>Auteur: </label> <li ng-bind="emprunts.media.titre"><li><br>
+							<label>Date d'emprunt: </label><li ng-bind="emprunts.depart | date:'dd/MM/yyyy'"> </li><br>
+							<label>Date de retour: </label><li ng-bind="emprunts.retour | date:'dd/MM/yyyy'"> </li><br>
+						
+						</div></a>
+						
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+</main>
