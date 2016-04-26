@@ -1,4 +1,4 @@
-package fr.iocean.application.adherent;
+package fr.iocean.application.adherent.modele;
 
 import java.util.Date;
 import java.util.List;
@@ -41,10 +41,10 @@ public class Adherent {
 	@NotEmpty
 	private String email;
 	private String adresse;
-	private int codePostal;
+	private Integer codePostal;
 	private String ville;
 	private Date datePaiementCotisation;
-	private int montantCotisation;
+	private Integer montantCotisation;
 	private Boolean aJourCotisation;
 	@Enumerated(EnumType.STRING)
 	private Droit droit;
@@ -102,10 +102,10 @@ public class Adherent {
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
-	public int getCodePostal() {
+	public Integer getCodePostal() {
 		return codePostal;
 	}
-	public void setCodePostal(int codePostal) {
+	public void setCodePostal(Integer codePostal) {
 		this.codePostal = codePostal;
 	}
 	public String getVille() {
@@ -120,10 +120,10 @@ public class Adherent {
 	public void setDatePaiementCotisation(Date datePaiementCotisation) {
 		this.datePaiementCotisation = datePaiementCotisation;
 	}
-	public int getMontantCotisation() {
+	public Integer getMontantCotisation() {
 		return montantCotisation;
 	}
-	public void setMontantCotisation(int montantCotisation) {
+	public void setMontantCotisation(Integer montantCotisation) {
 		this.montantCotisation = montantCotisation;
 	}
 	
