@@ -1,25 +1,25 @@
 package fr.iocean.application.media;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import fr.iocean.application.emprunt.Emprunt;
+import fr.iocean.application.IoEntity;
 
 @Entity
 @Table(name = "media_")
-public class Media {
+public class Media implements IoEntity {
+	
+	private static final long serialVersionUID = 1L;
+	
 	public static enum TypeMedia{CD, DVD, LIVRE};
 	
 	@Id
@@ -33,9 +33,6 @@ public class Media {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private TypeMedia typeMedia;
-	
-	@OneToMany(mappedBy="media")
-	private List<Emprunt> emprunts;
 	
 	public Long getId() {
 		return id;

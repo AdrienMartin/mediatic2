@@ -54,3 +54,5 @@ test_output/
 nb-configuration.xml
 /src/main/resources/jasper/MyReports/*
 nbactions.xml
+
+app/bower_components/

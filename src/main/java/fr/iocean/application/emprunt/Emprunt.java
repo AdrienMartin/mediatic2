@@ -11,12 +11,15 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import fr.iocean.application.adherent.Adherent;
+import fr.iocean.application.IoEntity;
+import fr.iocean.application.adherent.modele.Adherent;
 import fr.iocean.application.media.Media;
 
 @Entity
 @Table(name = "emprunt_")
-public class Emprunt {
+public class Emprunt implements IoEntity {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@SequenceGenerator(name="Emprunt_SEQ", sequenceName="Emprunt_SEQ", allocationSize=0)
