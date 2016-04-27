@@ -37,7 +37,7 @@ public class MediaController {
 		return mediaService.findOne(id);
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public void create(@RequestBody Media resource) {
 		mediaService.save(resource);

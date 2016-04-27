@@ -5,7 +5,7 @@ angular.module('ModuleMedia').service('RechercheMediaService', ['$http',function
 
 	self.getPromise = function(params)
 	{
-		var url = "http://10.34.10.140:8080/resource/media.recherche";
+		var url = "http://localhost:8080/api/medias";
 		var urlParams = {params:{}};
 
 		if(params.titre != undefined)

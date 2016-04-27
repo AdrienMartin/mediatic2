@@ -10,7 +10,7 @@ angular.module('ModuleApp', ['ngRoute', 'ModuleAdherent', 'ModuleMedia']);
 // => Injection du Provider du service $route afin de le configurer.
 angular.module('ModuleApp').config(function($routeProvider,$httpProvider){
 
-	    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+	    $httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 	   /* $routeProvider.when('/deconnexion',
 	    		{
 	    			templateUrl : './module-global/templates/login.html',	
