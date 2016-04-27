@@ -17,7 +17,7 @@ import fr.iocean.application.adherent.modele.Adherent;
 import fr.iocean.application.adherent.service.AdherentService;
 
 @RestController
-@RequestMapping("/api/adherent")
+@RequestMapping("/api/adherents")
 public class AdherentController {
 
 	@Autowired

@@ -1,16 +1,25 @@
 angular.module('ModuleAdherent').service('CreationAdherentService', ['$http', function($http)
 {
     var self = this;
-    var url = "http://10.34.10.140:8080/resource/adherent.creation";
+    var url = "http://localhost:8080/api/adherents";
     var res=false;
 	
     self.creation = function(adherent)
     {
-    	var params = {nom:adherent.nom, prenom:adherent.prenom, date_naissance:adherent.date_naissance, email: adherent.email, adresse : adherent.adresse};
-    	var cotisation = {debut:adherent.debutCotisation, fin: adherent.finCotisation, montant: adherent.montantCotisation};
-    	params.cotisation = cotisation;
-  
-    	return $http.post(url,params).then(function(response){
+		var urlParams = {params:{}};
+		urlParams.params.identifiant = "identifiantAdherent";
+		urlParams.params.nom = adherent.nom;
+		urlParams.params.prenom = adherent.prenom;
+		urlParams.params.dateNaissance = adherent.date_naissance;
+		urlParams.params.email = adherent.email;
+		urlParams.params.adresse = adherent.adresse.ligne1 + " " + adherent.adresse.ligne2;
+		urlParams.params.codePostal = adherent.adresse.codepostal;
+		urlParams.params.ville = adherent.adresse.ville;
+		urlParams.params.datePaiementCotisation = adherent.debutCotisation;
+		urlParams.params.finCotisation = adherent.finCotisation;
+		urlParams.params.montantCotisation = adherent.montantCotisation;
+		
+    	return $http.post(url,urlParams.params).then(function(response){
 			return true;
     	}, function myError(response) {
 			return false;
