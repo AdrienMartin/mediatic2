@@ -55,4 +55,5 @@ nb-configuration.xml
 /src/main/resources/jasper/MyReports/*
 nbactions.xml
 
-app/bower_components/
+/src/main/resources/public/app/bower_components/
+/src/main/resources/public/app/node_modules/

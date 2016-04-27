@@ -19,43 +19,37 @@ import fr.iocean.application.exception.NotFoundException;
 import fr.iocean.application.media.Media;
 import fr.iocean.application.media.service.MediaService;
 
-
-
 @RestController
-@RequestMapping(value="/api/medias")
+@RequestMapping(value = "/api/medias")
 @Transactional
 public class MediaController {
-	
+
 	@Autowired
-	 private MediaService mediaService;
+	private MediaService mediaService;
 
-	 @RequestMapping(method = RequestMethod.GET)
-	 public List<Media> findAll() {
-		 
-		 return mediaService.findAll();
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Media> findAll() {
+		return mediaService.findAll();
+	}
 
-	 }
-	 @RequestMapping(value = "{id}", method = RequestMethod.GET)
-	 public Media findById(@PathVariable Long id) throws NotFoundException{
-	
-		 return mediaService.findOne(id);
-	 }
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	public Media findById(@PathVariable Long id) throws NotFoundException {
+		return mediaService.findOne(id);
+	}
 
-	 @RequestMapping(value="/add", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
-	 @ResponseStatus(HttpStatus.CREATED)
-	 public  void create(@RequestBody Media resource) {
-		 
+	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.CREATED)
+	public void create(@RequestBody Media resource) {
 		mediaService.save(resource);
+	}
 
-	 }
+	@RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Media update(@PathVariable Long id, @RequestBody @Valid Media resource) throws NotFoundException {
+		return mediaService.updateMedia(id, resource);
+	}
 
-	 @RequestMapping(value = "{id}", method = RequestMethod.PUT,consumes=MediaType.APPLICATION_JSON_VALUE)
-	 public Media update(@PathVariable Long id,@RequestBody @Valid Media resource) throws NotFoundException {
-			 return mediaService.updateMedia(id,resource);
-	 }
-	 @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	 public void delete(@PathVariable Long id) throws NotFoundException{
-		
-			  mediaService.delete(id);
-	 }
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable Long id) throws NotFoundException {
+		mediaService.delete(id);
+	}
 }
