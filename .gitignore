@@ -56,4 +56,5 @@ nb-configuration.xml
 nbactions.xml
 
 /src/main/resources/public/app/bower_components/
+/src/main/resources/public/app/app/bower_components/
 /src/main/resources/public/app/node_modules/
