@@ -45,4 +45,16 @@ public class AdherentService {
 		this.adherentRepository = adherentRepository;
 	}
 	
+	public List<Object[]> recherche(String identifiant,String nom, int typeTrie){
+		return adherentRepository.recherche(identifiant, nom, typeTrie);
+	}
+	
+	public List<Object[]> rechercheMediasEmpruntes(Adherent adherent, int typeTrie){
+		return adherentRepository.rechercheMediasEmpruntes(adherent, typeTrie);
+	}
+	
+	public Adherent findByIdentifiantAndMotDePasse(String identifiant, String motDePasse){
+		return adherentRepository.findByIdentifiantAndMotDePasse(identifiant, motDePasse);
+	}
+	
 }

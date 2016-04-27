@@ -2,6 +2,8 @@ package fr.iocean.application.adherent.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +35,7 @@ public class AdherentController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public void create(@RequestBody Adherent resource){
+	public void create(@RequestBody @Valid Adherent resource){
 		adherentService.create(resource);
 	}
 	
@@ -43,7 +45,7 @@ public class AdherentController {
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
-	public void update(@PathVariable Long id, @RequestBody Adherent resource){
+	public void update(@PathVariable Long id, @RequestBody @Valid Adherent resource){
 		adherentService.update(resource);
 	}
 	
