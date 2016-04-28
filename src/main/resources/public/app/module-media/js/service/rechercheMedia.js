@@ -40,7 +40,7 @@ angular.module('ModuleMedia').service('RechercheMediaService', ['$http',function
 						id : itemFromServeur.id,
 						titre : itemFromServeur.titre,
 						auteur : itemFromServeur.auteur,
-						type : itemFromServeur.type,
+						type : itemFromServeur.typeMedia,
 						emprunteur : itemFromServeur.emprunteur,
 						emprunteurs : itemFromServeur.emprunteurs,
 						retour : (itemFromServeur.retour != undefined)?new Date(itemFromServeur.retour):""
