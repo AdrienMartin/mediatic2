@@ -20,7 +20,7 @@ public class Media implements IoEntity {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public static enum TypeMedia{CD, DVD, LIVRE};
+	public static enum TypeMedia{CD, DVD, Livre};
 	
 	@Id
 	@SequenceGenerator(name="Media_SEQ", sequenceName="Media_SEQ", allocationSize=0)
