@@ -18,6 +18,10 @@ angular.module('ModuleAdherent').service('CreationAdherentService', ['$http', fu
 		urlParams.params.datePaiementCotisation = adherent.debutCotisation;
 		urlParams.params.finCotisation = adherent.finCotisation;
 		urlParams.params.montantCotisation = adherent.montantCotisation;
+		if (adherent.finCotisation >= new Date())  
+			urlParams.params.aJourCotisation = true;
+		else 
+			urlParams.params.aJourCotisation = false;
 		
     	return $http.post(url,urlParams.params).then(function(response){
 			return true;

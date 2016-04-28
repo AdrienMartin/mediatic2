@@ -4,7 +4,7 @@ angular.module('ModuleAdherent').service('RechercheAdherentService', ['$http', f
     
     self.getListe = function(params)
     {
-    	var url = "http://10.34.10.140:8080/resource/adherent.recherche";
+    	var url = "http://localhost:8080/api/adherents";
     	return $http.get(url,{params:params}).then(function(response)
         {
             var adherents = [];
@@ -15,12 +15,12 @@ angular.module('ModuleAdherent').service('RechercheAdherentService', ['$http', f
                         id : itemFromServeur.id,
                         nom : itemFromServeur.nom,
                         prenom : itemFromServeur.prenom,
-                        date_naissance : new Date(itemFromServeur.date_naissance),
-                        cotisation_correcte : itemFromServeur.cotisation_correcte,
-                        emprunt : itemFromServeur.nombre_media,
-                        medias : itemFromServeur.emprunt
+                        date_naissance : itemFromServeur.dateNaissance,
+                       // emprunt : itemFromServeur.nombre_media,
+                        medias : itemFromServeur.emprunt,
+                        aJourCotisation : itemFromServeur.aJourCotisation
+                        
                 };
-       
                 adherents.push(itemForIHM);
             }
             return adherents;	
@@ -30,7 +30,7 @@ angular.module('ModuleAdherent').service('RechercheAdherentService', ['$http', f
     
     self.getPages = function(params)
     {
-    	var url = "http://10.34.10.140:8080/resource/adherent.recherche.taille";
+    	var url = "http://localhost:8080/api/adherents";
     	return $http.get(url, {params:params}).then(function(response)
         {
     		var pages = [];
