@@ -16,7 +16,7 @@ angular.module('ModuleAdherent').service('RechercheAdherentService', ['$http', f
                         nom : itemFromServeur.nom,
                         prenom : itemFromServeur.prenom,
                         date_naissance : itemFromServeur.dateNaissance,
-                       // emprunt : itemFromServeur.nombre_media,
+                        emprunt : itemFromServeur.nombre_media,
                         medias : itemFromServeur.emprunt,
                         aJourCotisation : itemFromServeur.aJourCotisation
                         

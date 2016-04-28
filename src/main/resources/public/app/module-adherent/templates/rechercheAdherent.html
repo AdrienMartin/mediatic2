@@ -3,7 +3,7 @@
 <main>
 <section class="bouton_new row">
 	<div class="col-md-12">
-		<a href="creationAdherent.html"><button class="btn btn-primary">
+		<a href="#creationAdherent"><button class="btn btn-primary">
 				Nouveau <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 			</button></a>
 	</div>
@@ -20,7 +20,7 @@
 						ng-model="adhCtrl.filter.id" />
 				</div>
 				<div class="form-group">
-					<label>Nom / Prénom</label>
+					<label>Nom / PrÃ©nom</label>
 					<br />
 					<input class="form-control" type="text" placeholder="Contient..."
 						ng-model="adhCtrl.filter.texte" />
@@ -31,7 +31,7 @@
 	</div>
 
 	<div class=" tableau col-md-8">
-		<span class="titre_tab">Liste des Adhérents</span>
+		<span class="titre_tab">Liste des AdhÃ©rents</span>
 		<div class="responsive-table-line">
 			<table class="hidden-xs table table-hover table-bordered ">
 				<thead>
@@ -40,7 +40,7 @@
 								class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></th>
 						<th><a href="" ng-click="adhCtrl.tri('nom')">Nom <span
 								class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></th>
-						<th><a href="" ng-click="adhCtrl.tri('prenom')">Prénom <span
+						<th><a href="" ng-click="adhCtrl.tri('prenom')">PrÃ©nom <span
 								class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a></th>
 						<th><a href="">Date de naissance <span class="glyphicon glyphicon-triangle-bottom"
 								aria-hidden="true"></span></a></th>
@@ -108,7 +108,7 @@
 							<li ng-if="adherent.aJourCotisation==true"><img src="img/valid.gif" /></li>
 							<li ng-if="adherent.aJourCotisation==false"><img src="img/sup.gif" /></li>
 							<br>
-							<label>Nombre médias en possession: </label>
+							<label>Nombre mÃ©dias en possession: </label>
 							<li ng-bind="adherent.emprunt"></li>
 							<br>
 
