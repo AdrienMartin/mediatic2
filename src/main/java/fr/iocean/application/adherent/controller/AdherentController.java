@@ -57,4 +57,9 @@ public class AdherentController {
 	public List<AdherentDTO> recherche(@RequestParam(required = false, defaultValue = "") String id,  @RequestParam(required = false, defaultValue = "0") int page,  @RequestParam(required = false, defaultValue = "") String texte,  @RequestParam(required = false, defaultValue = "0") int tri){
 		return adherentService.recherche(id, texte, tri, page);
 	}
+	
+	@RequestMapping(value = "page", method = RequestMethod.GET)
+	public Long page(@RequestParam(required = false, defaultValue = "") String id,  @RequestParam(required = false, defaultValue = "") String texte){
+		return adherentService.getNbPages(id, texte);
+	}
 }

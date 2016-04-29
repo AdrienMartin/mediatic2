@@ -62,6 +62,11 @@ angular.module('ModuleAdherent').controller('RechercheAdherentController', ['$ht
 			
 		RechercheAdherentService.getPages(params).then(function(response) {
 			myCtrl.listePages = response;
+			if(myCtrl.nbPages != myCtrl.listePages.length)
+			{
+				myCtrl.changePage(0);
+			}
+			myCtrl.nbPages = myCtrl.listePages.length;
 		}, function(){
 			// En cas d'erreur
 			myCtrl.pages = -1;

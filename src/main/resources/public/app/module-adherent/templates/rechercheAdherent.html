@@ -59,7 +59,7 @@
 						<td colspan="4">Erreur lors du chargement du catalogue</td>
 					</tr>
 					<tr ng-repeat="adherent in adhCtrl.listeAdherents" ng-click="adhCtrl.showAdherent(adherent.id)">
-						<td ng-bind="adherent.id"></td>
+						<td ng-bind="adherent.identifiant"></td>
 						<td ng-bind="adherent.nom"></td>
 						<td ng-bind="adherent.prenom"></td>
 						<td ng-bind="adherent.date_naissance"></td>
@@ -91,9 +91,9 @@
 				</div>
 
 				<div class="col-xs-6" ng-repeat="adherent in adhCtrl.listeAdherents">
-					<a href="ficheAdherent.html"><div class="list">
+					<a href="" ng-click="adhCtrl.showAdherent(adherent.id)"><div class="list">
 							<label>Identifiant: </label>
-							<li ng-bind="adherent.id"></li>
+							<li ng-bind="adherent.identifiant"></li>
 							<br>
 							<label>Nom: </label>
 							<li ng-bind="adherent.nom"></li>

@@ -25,20 +25,17 @@ public class AdherentRepositoryImpl extends AbstractJpaRepository<AdherentDTO> i
 			case 2: trie="prenom";break;
 			case 3: trie="dateNaissance";break;
 			case 4: trie="aJourCotisation"; break;
-			case 5: trie="count(b)"; break;
+			case 5: trie="emprunt"; break;
 			default: trie="nom";
 		}
 		if((typeTrie%2)==1)
 		{
 			desc="desc";
 		}
-
-		//getSession().createCriteria(Adherent.class).list();
-		//getSession().createCriteria(Adherent.class).add(Restrictions.eq("",).list();
 		
 		org.hibernate.Query q = getSession().createQuery("Select a, "
 				+ "("
-					+ "Select count(b) "
+					+ "Select count(b) as emprunt "
 					+ "from Emprunt b "
 					+ "where (b.dateRetour is null or b.dateRetour > now()) "
 					+ "and b.emprunteur = a"
@@ -51,25 +48,8 @@ public class AdherentRepositoryImpl extends AbstractJpaRepository<AdherentDTO> i
 		
 		q.setParameter("identifiant", identifiant+"%");
 	    q.setParameter("text", "%"+text+"%");
-	    /*q.setResultTransformer(new ResultTransformer() {
-			
-			@Override
-			public AdherentDTO transformTuple(Object[] arg0, String[] arg1) {
-		    	AdherentDTO adherentDTOTemp = new AdherentDTO();
-		    	adherentDTOTemp.setAdherent((Adherent)arg0[0]);
-		    	adherentDTOTemp.setNbEmprunts((Long)arg0[1]);
-				return adherentDTOTemp;
-			}
-			
-			@Override
-			public List<AdherentDTO> transformList(List arg0) {
-			    List<AdherentDTO> adherentsDTOTemp = new ArrayList<>();
-				for (Object object : arg0) {
-					adherentsDTOTemp.add((AdherentDTO) transformTuple((Object[])object, null));
-				}
-				return adherentsDTOTemp;
-			}
-		});*/
+	    q.setFirstResult(page*15);
+	    q.setMaxResults(15);
 		
 		System.out.println(q.list());
 	    List<AdherentDTO> adherentsDTOTemp = new ArrayList<>();
@@ -81,6 +61,19 @@ public class AdherentRepositoryImpl extends AbstractJpaRepository<AdherentDTO> i
 	    	adherentsDTOTemp.add(adherentDTOTemp);
 		}
 	    return adherentsDTOTemp;
+	}
+	
+	public Long getNbPages(String identifiant, String text){
+		org.hibernate.Query q = getSession().createQuery("Select count(a) "
+				+ "From Adherent a "
+				+ "where a.identifiant LIKE :identifiant "
+				+ "and (a.nom LIKE :text or a.prenom LIKE :text)");
+		
+		q.setParameter("identifiant", identifiant+"%");
+	    q.setParameter("text", "%"+text+"%");
+	    Long nbElements = (Long) q.list().get(0);
+	    Long nbPages = nbElements / 15 + ((nbElements % 15 > 0)?1:0);
+	    return nbPages;
 	}
 	
 	public List<Object[]> rechercheMediasEmpruntes(Adherent adherent, int typeTrie)

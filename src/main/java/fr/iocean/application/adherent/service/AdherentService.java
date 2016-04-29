@@ -45,9 +45,13 @@ public class AdherentService {
 	public void setAdherentRepository(AdherentRepository adherentRepository) {
 		this.adherentRepository = adherentRepository;
 	}
-	
+
 	public List<AdherentDTO> recherche(String identifiant,String nom, int typeTrie, int page){
 		return adherentRepository.recherche(identifiant, nom, typeTrie, page);
+	}
+	
+	public Long getNbPages(String identifiant,String nom){
+		return adherentRepository.getNbPages(identifiant, nom);
 	}
 	
 	public List<Object[]> rechercheMediasEmpruntes(Adherent adherent, int typeTrie){

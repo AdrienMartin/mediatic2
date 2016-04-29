@@ -4,7 +4,6 @@ angular.module('ModuleAdherent').service('RechercheAdherentService', ['$http', f
     
     self.getListe = function(params)
     {
-    	console.log('yolo');
     	var url = "http://localhost:8080/api/adherents/recherche";
     	return $http.get(url,{params:params}).then(function(response)
         {
@@ -12,9 +11,9 @@ angular.module('ModuleAdherent').service('RechercheAdherentService', ['$http', f
             for(var index in response.data)
             {
                 var itemFromServeur = response.data[index];
-            	console.log(itemFromServeur);
                 var itemForIHM = {
-                        id : itemFromServeur.adherent.identifiant,
+                        id : itemFromServeur.adherent.id,
+                        identifiant : itemFromServeur.adherent.identifiant,
                         nom : itemFromServeur.adherent.nom,
                         prenom : itemFromServeur.adherent.prenom,
                         date_naissance : itemFromServeur.adherent.dateNaissance,
@@ -25,24 +24,20 @@ angular.module('ModuleAdherent').service('RechercheAdherentService', ['$http', f
             }
             return adherents;	
         });
-        
     }
     
     self.getPages = function(params)
     {
-    	var url = "http://localhost:8080/api/adherents";
+    	var url = "http://localhost:8080/api/adherents/page";
     	return $http.get(url, {params:params}).then(function(response)
         {
     		var pages = [];
-    		for (var i = 0; i<response.data.pages; i++){
+    		for (var i = 0; i<response.data; i++){
     			pages.push(i);
     		}
     		return pages;
         });
-        
     }
-  
-    
 }]);
 
 
