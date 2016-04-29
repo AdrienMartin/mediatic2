@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.iocean.application.adherent.modele.Adherent;
+import fr.iocean.application.adherent.modele.AdherentDTO;
 import fr.iocean.application.adherent.service.AdherentService;
 
 @RestController
 @RequestMapping("/api/adherents")
+@Transactional
 public class AdherentController {
 
 	@Autowired
@@ -50,8 +53,8 @@ public class AdherentController {
 		adherentService.update(resource);
 	}
 	
-	@RequestMapping(params = {"id","page","texte"}, method = RequestMethod.GET)
-	public void recherche(@RequestParam String id,  @RequestParam int page,  @RequestParam String texte){
-		adherentService.recherche(id, texte, 0);
+	@RequestMapping(value = "recherche", method = RequestMethod.GET)
+	public List<AdherentDTO> recherche(@RequestParam(required = false, defaultValue = "") String id,  @RequestParam(required = false, defaultValue = "0") int page,  @RequestParam(required = false, defaultValue = "") String texte,  @RequestParam(required = false, defaultValue = "0") int tri){
+		return adherentService.recherche(id, texte, tri, page);
 	}
 }

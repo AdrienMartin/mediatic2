@@ -36,18 +36,18 @@
 			<table class="hidden-xs table table-hover table-bordered ">
 				<thead>
 					<tr class="entete">
-						<th><a href="" ng-click="adhCtrl.tri('id')">Identifiant <span
+						<th><a href="" ng-click="adhCtrl.tri(0)">Identifiant <span
 								class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></th>
-						<th><a href="" ng-click="adhCtrl.tri('nom')">Nom <span
+						<th><a href="" ng-click="adhCtrl.tri(2)">Nom <span
 								class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></a></th>
-						<th><a href="" ng-click="adhCtrl.tri('prenom')">Prénom <span
+						<th><a href="" ng-click="adhCtrl.tri(4)">Prénom <span
 								class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a></th>
-						<th><a href="">Date de naissance <span class="glyphicon glyphicon-triangle-bottom"
+						<th><a href="" ng-click="adhCtrl.tri(6)">Date de naissance <span class="glyphicon glyphicon-triangle-bottom"
 								aria-hidden="true"></span></a></th>
-						<th><a id="cotisation" href="" title="A jour cotisation"><span
+						<th><a id="cotisation" href="" title="A jour cotisation"  ng-click="adhCtrl.tri(8)"><span
 								class="glyphicon glyphicon-euro" aria-hidden="true"></span> <span
 								class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a></th>
-						<th><a id="nbMedia" title="Nbre de médias en possession" href="">Médias<span
+						<th><a id="nbMedia" title="Nbre de médias en possession" href=""  ng-click="adhCtrl.tri(10)">Médias<span
 								class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></a></th>
 					</tr>
 				</thead>

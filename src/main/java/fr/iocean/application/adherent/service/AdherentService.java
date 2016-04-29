@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import fr.iocean.application.adherent.modele.Adherent;
+import fr.iocean.application.adherent.modele.AdherentDTO;
 import fr.iocean.application.adherent.repository.AdherentRepository;
 
 @Service
@@ -45,8 +46,8 @@ public class AdherentService {
 		this.adherentRepository = adherentRepository;
 	}
 	
-	public List<Object[]> recherche(String identifiant,String nom, int typeTrie){
-		return adherentRepository.recherche(identifiant, nom, typeTrie);
+	public List<AdherentDTO> recherche(String identifiant,String nom, int typeTrie, int page){
+		return adherentRepository.recherche(identifiant, nom, typeTrie, page);
 	}
 	
 	public List<Object[]> rechercheMediasEmpruntes(Adherent adherent, int typeTrie){

@@ -38,7 +38,14 @@ angular.module('ModuleAdherent').controller('RechercheAdherentController', ['$ht
 	
 	myCtrl.tri = function(param)
 	{
-		myCtrl.filter.tri = param;
+		if(myCtrl.filter.tri == param)
+		{
+			myCtrl.filter.tri = param + 1;
+		}
+		else
+		{
+			myCtrl.filter.tri = param;
+		}
 		myCtrl.rechercher();
 	}
 	

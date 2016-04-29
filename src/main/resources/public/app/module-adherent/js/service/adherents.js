@@ -4,22 +4,22 @@ angular.module('ModuleAdherent').service('RechercheAdherentService', ['$http', f
     
     self.getListe = function(params)
     {
-    	var url = "http://localhost:8080/api/adherents";
+    	console.log('yolo');
+    	var url = "http://localhost:8080/api/adherents/recherche";
     	return $http.get(url,{params:params}).then(function(response)
         {
             var adherents = [];
             for(var index in response.data)
             {
                 var itemFromServeur = response.data[index];
+            	console.log(itemFromServeur);
                 var itemForIHM = {
-                        id : itemFromServeur.id,
-                        nom : itemFromServeur.nom,
-                        prenom : itemFromServeur.prenom,
-                        date_naissance : itemFromServeur.dateNaissance,
-                        emprunt : itemFromServeur.nombre_media,
-                        medias : itemFromServeur.emprunt,
-                        aJourCotisation : itemFromServeur.aJourCotisation
-                        
+                        id : itemFromServeur.adherent.identifiant,
+                        nom : itemFromServeur.adherent.nom,
+                        prenom : itemFromServeur.adherent.prenom,
+                        date_naissance : itemFromServeur.adherent.dateNaissance,
+                        emprunt : itemFromServeur.nbEmprunts,
+                        aJourCotisation : itemFromServeur.adherent.aJourCotisation
                 };
                 adherents.push(itemForIHM);
             }
